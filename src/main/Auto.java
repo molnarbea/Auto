@@ -1,18 +1,26 @@
 package main;
 
+import java.util.Objects;
+
 public class Auto {
     
     private boolean uzemanyag;
     private boolean inditva;
+    private String megy;
 
     public Auto() {
-        this(true, true);
+        this(true, true,"");
     }
+
     
-    public Auto(boolean uzemanyag, boolean inditva) {
+    
+    public Auto(boolean uzemanyag, boolean inditva, String megy) {
         this.uzemanyag = uzemanyag;
-        setInditva(inditva);
+        this.inditva = inditva;
+        this.megy = megy;
     }
+
+    
 
     public boolean isUzemanyag() {
         return uzemanyag;
@@ -21,6 +29,11 @@ public class Auto {
     public boolean isInditva() {
         return inditva;
     }
+
+    public String getMegy() {
+        return megy;
+    }
+    
 
     public void setInditva(boolean inditva) {
         this.inditva = inditva;
@@ -31,34 +44,34 @@ public class Auto {
         System.out.printf("Beindítva: %b\n",this.inditva);
         if (this.inditva == true && this.uzemanyag == true){
             this.uzemanyag = false;
-            System.out.printf("\nMegy: %b\n",true);
+            this.megy += "-";
+            System.out.printf("\nMegy: %s@\n",this.megy);
         }else{
-            System.out.printf("\nMegy: %b\n",false);
+            System.out.printf("\nMegy: %s@\n",this.megy);
         }
     }
     
     public void tankol(){
-        System.out.printf("Üzemanyag: %b\n",this.uzemanyag);
-        System.out.printf("Beindítva: %b\n",this.inditva);
         if (this.inditva != true && this.uzemanyag != true){
             this.uzemanyag = true;
-            System.out.printf("\nTankol: %b\n",true);
+            System.out.printf("Tankol: %b\n",true);
         }else{
-            System.out.printf("\nTankol: %b\n",false);
+            System.out.printf("Tankol: %b\n",false);
         }
-        System.out.println("***************");
+        System.out.println("***************\n");
     }
 
     @Override
     public String toString() {
-        return "Auto{" + "uzemanyag=" + uzemanyag + ", inditva=" + inditva + '}';
+        return "Auto{" + "uzemanyag=" + uzemanyag + ", inditva=" + inditva + ", megy=" + megy + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 7;
         hash = 83 * hash + (this.uzemanyag ? 1 : 0);
         hash = 83 * hash + (this.inditva ? 1 : 0);
+        hash = 83 * hash + Objects.hashCode(this.megy);
         return hash;
     }
 
@@ -77,7 +90,13 @@ public class Auto {
         if (this.uzemanyag != other.uzemanyag) {
             return false;
         }
-        return this.inditva == other.inditva;
+        if (this.inditva != other.inditva) {
+            return false;
+        }
+        return Objects.equals(this.megy, other.megy);
     }
+
+    
+    
     
 }
